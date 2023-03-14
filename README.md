@@ -20,7 +20,11 @@ JPGTRxxx.ZIP をダウンロードして展開し、JPEGTRAN.X をパスの通�
 
 - プログレッシブJPEGファイル(input.jpg)をベースラインJPEGファイル(output.jpg)に変換する
 
+
     jpegtran -outfile output.jpg input.jpg
+
+
+input.jpgはプログレッシブでもベースラインでもどちらでも構いません。
 
 ---
 
