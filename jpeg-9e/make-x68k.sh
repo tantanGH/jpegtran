@@ -6,7 +6,7 @@ if [ "${XDEV68K_DIR}" == "" ]; then
 fi
 
 TARGET_FILE="JPEGTRAN.X"
-DOC_FILE="../JPEGTRAN.DOC"
+#DOC_FILE="../JPEGTRAN.DOC"
 ZIP_FILE="../../JPGTR010.ZIP"
 
 CC=${XDEV68K_DIR}/m68k-toolchain/bin/m68k-elf-gcc
@@ -21,7 +21,7 @@ INCLUDE_FLAGS="-I${XDEV68K_DIR}/include/xc -I${XDEV68K_DIR}/include/xdev68k"
 COMMON_FLAGS="-m68000 -Os ${INCLUDE_FLAGS} -z-stack=32768"
 CFLAGS="${COMMON_FLAGS} -Wno-builtin-declaration-mismatch -fcall-used-d2 -fcall-used-a2 \
     -fexec-charset=cp932 -fverbose-asm -fno-defer-pop -DFPM_DEFAULT -D_TIME_T_DECLARED -D_CLOCK_T_DECLARED -Dwint_t=int \
-		-DXDEV68K"
+		-D__XDEV68K__"
 
 LIBS="${XDEV68K_DIR}/lib/xc/CLIB.L ${XDEV68K_DIR}/lib/xc/DOSLIB.L ${XDEV68K_DIR}/lib/xc/IOCSLIB.L ${XDEV68K_DIR}/lib/xc/FLOATFNC.L \
       ${XDEV68K_DIR}/lib/m68k_elf/m68000/libgcc.a"
@@ -82,7 +82,8 @@ function build_jpegtran() {
   done
   ${XDEV68K_DIR}/run68/run68 ${HLK} -i ${HLK_LINK_LIST} -o ${TARGET_FILE}
   rm -f tmp*.\$$\$$\$$
-  zip -jr ${ZIP_FILE} ${DOC_FILE} ${TARGET_FILE}
+#  zip -jr ${ZIP_FILE} ${DOC_FILE} ${TARGET_FILE}
+  zip -jr ${ZIP_FILE} ${TARGET_FILE}
   cd ..
   return 0
 }

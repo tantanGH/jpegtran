@@ -25,6 +25,9 @@ extern void * malloc JPP((size_t size));
 extern void free JPP((void *ptr));
 #endif
 
+#ifdef __XDEV68K__
+#include <doslib.h>
+#endif
 
 /* Expanded data destination object for stdio output */
 
@@ -127,16 +130,22 @@ empty_mem_output_buffer (j_compress_ptr cinfo)
 
   /* Try to allocate new buffer with double size */
   nextsize = dest->bufsize * 2;
+#ifdef __XDEV68K__
+  nextbuffer = (JOCTET *) MALLOC(nextsize);
+#else
   nextbuffer = (JOCTET *) malloc(nextsize);
-
+#endif
   if (nextbuffer == NULL)
     ERREXIT1(cinfo, JERR_OUT_OF_MEMORY, 11);
 
   MEMCOPY(nextbuffer, dest->buffer, dest->bufsize);
 
   if (dest->newbuffer != NULL)
+#ifdef __XDEV68K__
+    MFREE((unsigned int)dest->newbuffer);
+#else
     free(dest->newbuffer);
-
+#endif
   dest->newbuffer = nextbuffer;
 
   dest->pub.next_output_byte = nextbuffer + dest->bufsize;
@@ -256,7 +265,11 @@ jpeg_mem_dest (j_compress_ptr cinfo,
 
   if (*outbuffer == NULL || *outsize == 0) {
     /* Allocate initial buffer */
+#ifdef __XDEV68K__
+    dest->newbuffer = *outbuffer = (unsigned char *) MALLOC(OUTPUT_BUF_SIZE);
+#else
     dest->newbuffer = *outbuffer = (unsigned char *) malloc(OUTPUT_BUF_SIZE);
+#endif
     if (dest->newbuffer == NULL)
       ERREXIT1(cinfo, JERR_OUT_OF_MEMORY, 10);
     *outsize = OUTPUT_BUF_SIZE;

@@ -49,7 +49,7 @@ GLOBAL(void)
 jpeg_free_small (j_common_ptr cinfo, void * object, size_t sizeofobject)
 {
 #ifdef __XDEV68K__
-  MEMFREE((unsigned int)object);
+  MFREE((unsigned int)object);
 #else
   free(object);
 #endif
@@ -66,13 +66,21 @@ jpeg_free_small (j_common_ptr cinfo, void * object, size_t sizeofobject)
 GLOBAL(void FAR *)
 jpeg_get_large (j_common_ptr cinfo, size_t sizeofobject)
 {
+#ifdef __XDEV68K__
+  return (void FAR *) MALLOC(sizeofobject);
+#else
   return (void FAR *) malloc(sizeofobject);
+#endif
 }
 
 GLOBAL(void)
 jpeg_free_large (j_common_ptr cinfo, void FAR * object, size_t sizeofobject)
 {
+#ifdef __XDEV68K__
+  MFREE((unsigned int)object);
+#else
   free(object);
+#endif
 }
 
 
