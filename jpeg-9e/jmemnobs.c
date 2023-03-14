@@ -39,7 +39,8 @@ GLOBAL(void *)
 jpeg_get_small (j_common_ptr cinfo, size_t sizeofobject)
 {
 #ifdef __XDEV68K__
-  return (void *) MALLOC(sizeofobject);
+  unsigned int addr = MALLOC(sizeofobject);
+  return (addr >= 0x81000000) ? NULL : (void*)addr;
 #else
   return (void *) malloc(sizeofobject);
 #endif
@@ -67,7 +68,8 @@ GLOBAL(void FAR *)
 jpeg_get_large (j_common_ptr cinfo, size_t sizeofobject)
 {
 #ifdef __XDEV68K__
-  return (void FAR *) MALLOC(sizeofobject);
+  unsigned int addr = MALLOC(sizeofobject);
+  return (addr >= 0x81000000) ? NULL : (void FAR *)addr;
 #else
   return (void FAR *) malloc(sizeofobject);
 #endif

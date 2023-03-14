@@ -131,7 +131,8 @@ empty_mem_output_buffer (j_compress_ptr cinfo)
   /* Try to allocate new buffer with double size */
   nextsize = dest->bufsize * 2;
 #ifdef __XDEV68K__
-  nextbuffer = (JOCTET *) MALLOC(nextsize);
+  unsigned int addr = MALLOC(nextsize);
+  nextbuffer = (addr >= 0x81000000) ? NULL : (JOCTET*)addr;
 #else
   nextbuffer = (JOCTET *) malloc(nextsize);
 #endif
@@ -266,7 +267,8 @@ jpeg_mem_dest (j_compress_ptr cinfo,
   if (*outbuffer == NULL || *outsize == 0) {
     /* Allocate initial buffer */
 #ifdef __XDEV68K__
-    dest->newbuffer = *outbuffer = (unsigned char *) MALLOC(OUTPUT_BUF_SIZE);
+  unsigned int addr = MALLOC(OUTPUT_BUF_SIZE);
+  dest->newbuffer = *outbuffer = (addr >= 0x81000000) ? NULL : (unsigned char*)addr;
 #else
     dest->newbuffer = *outbuffer = (unsigned char *) malloc(OUTPUT_BUF_SIZE);
 #endif
