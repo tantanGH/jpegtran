@@ -2,7 +2,7 @@
 
 JPEG optimization tool for X680x0/Human68k
 
-JPEGデータの最適化を行う [Independent JPEG Group](https://www.ijg.org/) の jpegtran コマンド (version 9e) を X680x0/Human68k 向けにコンパイルしたものです。
+[Independent JPEG Group](https://www.ijg.org/) の提供する jpegtran コマンド (version 9e) を X680x0/Human68k 向けにコンパイルしたものです。
 
 主に扱いのやっかいなプログレッシブJPEGを標準的なベースラインJPEGに変換する目的でビルドしました。
 
