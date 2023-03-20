@@ -20,11 +20,11 @@ JPGTRxxx.ZIP をダウンロードして展開し、JPEGTRAN.X をパスの通�
 
 ### 使い方
 
-プログレッシブJPEGファイル(input.jpg)をベースラインJPEGファイル(output.jpg)に変換する:
+プログレッシブJPEGファイル(input.jpg)をベースラインJPEGファイル(output.jpg)に変換する、かつハフマン符号テーブルを最適化する。
 
-    jpegtran -outfile output.jpg input.jpg
+    jpegtran -optimize -outfile output.jpg input.jpg
 
-input.jpgはプログレッシブでもベースラインでもどちらでも構いません。
+input.jpgはプログレッシブでもベースラインでもどちらでも構いません。単に最適化して展開速度を上げるだけにも使えます。
 
 ---
 
